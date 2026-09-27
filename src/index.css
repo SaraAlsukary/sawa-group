@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-main: #f8f3f0;
+  --color-brand-red: #cb011a;
+  --color-brand-dark: #000000;
+
+  /* ربط أسماء الخطوط بـ Tailwind v4 لاستخدام كلاسات مثل font-arabic و font-zen */
+  --font-zen: 'Zen Antique', serif;
+  --font-japanese: 'Noto Serif JP', serif;
+  --font-arabic: 'Scheherazade New', serif;
+  --font-vollkorn: 'Vollkorn SC', serif;
+}
+
+/* 1. استخدام / بدلاً من ./ لتحديد المجلد من جذر public */
+@font-face {
+  font-family: 'Zen Antique';
+  src: url('/Fonts/ZenAntiqueSoft-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif JP';
+  src: url('/Fonts/NotoSerifJP-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('/Fonts/ScheherazadeNew-Bold.ttf') format('truetype');
+  /* تم تصحيح الصيغة إلى truetype */
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vollkorn SC';
+  src: url('/Fonts/Vollkorn-Regular.ttf') format('truetype');
+  /* تم تصحيح الصيغة إلى truetype */
+  font-display: swap;
+}
+
+* {
+  font-family: "Zen Antique", "Vollkorn SC", "Noto Serif JP", "Scheherazade New";
+
+}
+
+html {
+  scroll-behavior: smooth;
+
+}
+
