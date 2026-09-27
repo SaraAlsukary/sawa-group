@@ -1,43 +1,47 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Loading from "./components/Loading";
 import "./App.css";
-import i18next from "i18next";
 
-// استدعاء الصفحة بشكل كسول (Lazy Loading) لتحسين السرعة
 const Home = lazy(() => import("./pages/Home"));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const currentLang = i18next.language
+  const { i18n } = useTranslation();
 
   useEffect(() => {
+    // 1. تطبيق الخط المناسب بناءً على اللغة الحالية
+    const currentLang = i18n.language;
     if (currentLang === "en" || currentLang === "ar") {
-      document.body.style.fontFamily = " var(--font-arabic)"
+      document.body.style.fontFamily = "var(--font-arabic)";
     } else {
-      document.body.style.fontFamily = " var(--font-japanese)"
-
+      document.body.style.fontFamily = "var(--font-japanese)";
     }
 
+    // 2. وقت انتظار أدنى لمنع حدوث وميض سريع للـ Loader
+    const minTimer = new Promise((resolve) => setTimeout(resolve, 800));
 
+    // 3. التحقق من جاهزية واجهة تحميل الخطوط في المتصفح
+    const fontsLoaded = "fonts" in document ? document.fonts.ready : Promise.resolve();
 
-
-
-    // محاكاة تحضير البيانات أو انتظار تحميل التطبيق بالكامل
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
-
-    return () => clearTimeout(timer);
+    // 4. دمج الانتظار: لن يتم إخفاء التحميل إلا بعد اكتمال تنزيل كافة الخطوط ووقت Timer الأدنى
+    Promise.all([fontsLoaded, minTimer])
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("حدث خطأ أثناء تحميل الخطوط:", err);
+        setIsLoading(false); // إخفاء الشاشة حتى لو حدث خطأ لضمان عدم تعليق المستعرض
+      });
   }, []);
-  // 1. عرض شاشة التحميل عند فتح الموقع لأول مرة
+
   if (isLoading) {
     return <Loading />;
   }
 
   return (
     <Router>
-      {/* 2. استخدام Suspense لعرض شاشة التحميل أثناء التنقل بين الصفحات */}
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
