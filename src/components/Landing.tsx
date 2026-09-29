@@ -202,9 +202,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // استيراد الصور
-import img1 from "/Services/من نحن_.webp";
-import img2 from "/Services/img3 (1).webp";
-import img3 from "/Services/اعمالنا .webp";
+import img1 from "/Services/s1.png";
+import img2 from "/Services/s1.png";
+import img3 from "/Services/s1.png";
 
 const images = [img1, img2, img3];
 
@@ -224,8 +224,8 @@ export default function Landing() {
   const nextIndex = (currentIndex + 1) % images.length;
 
   return (
-    <section className="relative w-full py-6 sm:py-10 md:min-h-[85vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-black to-gray-950 px-3 sm:px-6">
-      
+    <section id="home" className="relative w-full py-6 sm:py-10 md:min-h-[85vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-black to-gray-950 px-3 sm:px-6">
+
       {/* 1. الإشعاع الضوئي الخلفي التكيفي (Ambient Glow) */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -246,7 +246,7 @@ export default function Landing() {
 
       {/* 2. حاوية المسرح البصري ثلاثي الأبعاد - الارتفاع معدل للموبايل */}
       <div className="relative z-10 w-full max-w-7xl mx-auto h-[260px] xs:h-[320px] sm:h-[420px] md:h-[520px] lg:h-[600px] flex items-center justify-center perspective-1000">
-        
+
         {/* الصورة السابقة (تظهر في الكمبيوتر فقط) */}
         <motion.div
           animate={{
@@ -267,9 +267,9 @@ export default function Landing() {
 
         {/* الصورة الرئيسية (تغطي الموبايل بجمالية وبدون قص) */}
         <div className="relative w-full sm:w-[85%] md:w-[65%] h-full rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-br from-white/20 via-white/5 to-red-600/30 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.9)] sm:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-          
+
           <div className="relative w-full h-full rounded-[14px] sm:rounded-[22px] overflow-hidden bg-gray-950">
-            
+
             {/* العرض المتحرك للصورة الرئيسية */}
             <AnimatePresence mode="wait">
               <motion.div
@@ -328,9 +328,8 @@ export default function Landing() {
         {images.map((_, idx) => (
           <div
             key={idx}
-            className={`relative h-1.5 rounded-full overflow-hidden transition-all duration-700 ${
-              idx === currentIndex ? "w-12 sm:w-16 bg-white/20" : "w-2.5 sm:w-3 bg-white/10"
-            }`}
+            className={`relative h-1.5 rounded-full overflow-hidden transition-all duration-700 ${idx === currentIndex ? "w-12 sm:w-16 bg-white/20" : "w-2.5 sm:w-3 bg-white/10"
+              }`}
           >
             {idx === currentIndex && (
               <motion.div

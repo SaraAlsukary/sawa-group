@@ -6,7 +6,6 @@ import { IoPerson } from "react-icons/io5";
 import { GrServices } from "react-icons/gr";
 import { MdOutlineLanguage } from "react-icons/md";
 import { FiAlignJustify, FiX } from "react-icons/fi";
-import { Link } from "react-router-dom";
 
 export default function Navbar() {
     const { t, i18n } = useTranslation();
@@ -22,13 +21,24 @@ export default function Navbar() {
         { code: "ja", name: "日本語", font: "font-japanese" },
     ];
 
+    const currentLangCode = i18n.language?.split("-")[0] || "ar";
     const currentLang =
-        languages.find((l) => l.code === i18n.language) || languages[0];
+        languages.find((l) => l.code === currentLangCode) || languages[0];
 
-    // 2. تحديث الرابط النشط تلقائياً عند السكرول في الصفحة
+    // 2. روابط القائمة الرئيسية
+    const navLinks = [
+        { href: "#home", label: t("Navbar-Home"), icon: <FaHome /> },
+        { href: "#about", label: t("Navbar-about"), icon: <IoPerson /> },
+        { href: "#Services", label: t("Navbar-Services"), icon: <GrServices /> },
+        { href: "#Contact", label: t("Navbar-contact"), icon: <FaPhoneAlt /> },
+    ];
+
+    // 3. تحديث الرابط النشط عند السكرول
     useEffect(() => {
         const handleScroll = () => {
-            const sections = navLinks.map((l) => l.href.replace("#", "")).filter(Boolean);
+            const sections = navLinks
+                .map((l) => l.href.replace("#", ""))
+                .filter(Boolean);
             const scrollPosition = window.scrollY + 200;
 
             for (const section of sections) {
@@ -51,7 +61,7 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // 3. إغلاق القائمة المنسدلة عند النقر خارجها
+    // 4. إغلاق القائمة المنسدلة عند النقر خارجها
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -65,17 +75,21 @@ export default function Navbar() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    // 4. ضبط اتجاه وفونت الصفحة تلقائياً
+    // 5. ضبط اتجاه وفونت الصفحة
     useEffect(() => {
-        const isArabic = i18n.language === "ar";
+        const isArabic = currentLangCode === "ar";
         const dir = isArabic ? "rtl" : "ltr";
 
         document.documentElement.dir = dir;
-        document.documentElement.lang = i18n.language;
+        document.documentElement.lang = currentLangCode;
 
-        document.documentElement.classList.remove("font-arabic", "font-japanese", "font-sans");
+        document.documentElement.classList.remove(
+            "font-arabic",
+            "font-japanese",
+            "font-sans"
+        );
         document.documentElement.classList.add(currentLang.font);
-    }, [i18n.language, currentLang.font]);
+    }, [currentLangCode, currentLang.font]);
 
     const handleLanguageChange = (langCode: string) => {
         i18n.changeLanguage(langCode);
@@ -83,26 +97,56 @@ export default function Navbar() {
         setIsMobileMenuOpen(false);
     };
 
-    // روابط القائمة الرئيسية
-    const navLinks = [
-        { href: "#", label: t("Navbar-Home"), icon: <FaHome /> },
-        { href: "#about", label: t("Navbar-about"), icon: <IoPerson /> },
-        { href: "#Services", label: t("Navbar-Services"), icon: <GrServices /> },
-        { href: "#Contact", label: t("Navbar-contact"), icon: <FaPhoneAlt /> },
-    ];
+    // دالة النقر للتنقل السلس المصلحة
+    // دالة النقر للتنقل السلس مع مراعاة ارتفاع الهيدر الثابت
+    const handleNavClick = (
+        e: React.MouseEvent<HTMLAnchorElement>,
+        href: string
+    ) => {
+        e.preventDefault();
+        setActiveNav(href);
+        setIsMobileMenuOpen(false);
 
+        if (href === "#") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+        }
+
+        const targetId = href.replace("#", "");
+        const targetElement =
+            document.getElementById(targetId) ||
+            document.getElementById(targetId.toLowerCase());
+
+        if (targetElement) {
+            setTimeout(() => {
+                // 1. حساب ارتفاع الهيدر الثابت تلقائياً
+                const headerElement = document.querySelector("header");
+                const headerHeight = headerElement ? headerElement.offsetHeight : 140;
+
+                // 2. حساب موقع القسم بالنسبة لأعلى الصفحة مطروحاً منه ارتفاع الهيدر
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerHeight;
+
+                // 3. السكرول للموقع الموزون
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                });
+            }, 100);
+        }
+    };
     return (
-        <header className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur-xl bg-white/95 ${currentLang.font}`}>
-
-            {/* 1. الشريط العلوي المكبر الفخم (Announcement Bar) */}
+        <header
+            className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur-xl bg-white/95 ${currentLang.font}`}
+        >
+            {/* 1. الشريط العلوي (Announcement Bar) */}
             <div className="bg-gradient-to-r from-gray-950 via-red-950 to-gray-950 text-white py-3.5 md:py-4 border-b-2 border-red-600 shadow-inner">
-                <div className="container mx-auto flex flex-row md:flex-col flex-wrap items-center  justify-center px-4 sm:px-6 gap-3">
-
-                    <div className="flex items-center  gap-3 md:gap-4">
-                        <span className="bg-red-600 text-white-300 px-3.5 py-1.5 rounded-lg text-xs md:text-base font-black uppercase tracking-wider shadow-lg border border-yellow-400/30">
+                <div className="container mx-auto flex flex-row md:flex-col flex-wrap items-center justify-center px-4 sm:px-6 gap-3">
+                    <div className="flex items-center gap-3 md:gap-4">
+                        <span className="bg-red-600 text-white px-3.5 py-1.5 rounded-lg text-xs md:text-base font-black uppercase tracking-wider shadow-lg border border-yellow-400/30">
                             {t("Header-h")}
                         </span>
-                        <span className="text-white-400 font-extrabold text-base md:text-2xl drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                        <span className="text-gray-100 font-extrabold text-base md:text-2xl drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                             {t("Header-p")}
                         </span>
                     </div>
@@ -115,50 +159,52 @@ export default function Navbar() {
 
             {/* 2. شريط الملاحة الرئيسي Main Navigation Bar */}
             <div className="container mx-auto flex items-center justify-between px-4 py-3.5">
-
                 {/* اللوجو والعنوان */}
-                <Link to="#" onClick={() => setActiveNav("#")} className="flex items-center gap-3 group">
+                <a
+                    href="#"
+                    onClick={(e) => handleNavClick(e, "#")}
+                    className="flex items-center gap-3 group"
+                >
                     <motion.img
                         whileHover={{ scale: 1.08, rotate: 2 }}
                         transition={{ type: "spring", stiffness: 300 }}
-                        src={"/Logo/logo.png"}
+                        src="/Logo/logo.png"
                         alt="Sawa Group Logo"
                         className="h-12 w-auto object-contain sm:h-14 drop-shadow-md"
                     />
                     <span className="text-2xl md:text-3xl font-black font-arabic bg-[linear-gradient(-40deg,#eab308_35%,#dc2626_70%)] drop-shadow-[0_0px_0.5px_rgba(0,0,0,0.8)] bg-clip-text text-transparent hover:brightness-125 transition-all tracking-tight hidden sm:block">
                         {t("Header-h")}
                     </span>
-                </Link>
+                </a>
 
-                {/* روابط الكمبيوتر مع التلوين النشط وتأثير الضغط والوقوف */}
+                {/* روابط الكمبيوتر */}
                 <nav className="hidden lg:flex items-center gap-2 xl:gap-4">
                     {navLinks.map((link, idx) => {
                         const isActive = activeNav === link.href;
                         return (
-                            <Link
+                            <a
                                 key={idx}
-                                to={link.href}
-                                onClick={() => setActiveNav(link.href)}
+                                href={link.href}
+                                onClick={(e) => handleNavClick(e, link.href)}
                                 className={`flex items-center gap-2.5 px-5 py-2.5 text-xl font-bold rounded-xl transition-all duration-300 ${isActive
-                                    ? "bg-red-600 text-white shadow-lg shadow-red-600/40 scale-105"
-                                    : "text-gray-800 hover:bg-red-50 hover:text-red-600 hover:scale-102"
+                                        ? "bg-red-600 text-white shadow-lg shadow-red-600/40 scale-105"
+                                        : "text-gray-800 hover:bg-red-50 hover:text-red-600 hover:scale-105"
                                     }`}
                             >
                                 <span
-                                    className={`text-xl transition-colors ${isActive ? "text-white" : "text-red-600 group-hover:text-red-600"
+                                    className={`text-xl transition-colors ${isActive ? "text-white" : "text-red-600"
                                         }`}
                                 >
                                     {link.icon}
                                 </span>
                                 <span>{link.label}</span>
-                            </Link>
+                            </a>
                         );
                     })}
                 </nav>
 
                 {/* محول اللغات وزر الموبايل */}
                 <div className="flex items-center gap-3">
-
                     <div className="relative" ref={langDropdownRef}>
                         <button
                             onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
@@ -185,9 +231,10 @@ export default function Navbar() {
                                         <button
                                             key={lang.code}
                                             onClick={() => handleLanguageChange(lang.code)}
-                                            className={`flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-base font-bold transition-all ${lang.font} ${i18n.language === lang.code
-                                                ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                                                : "text-gray-800 hover:bg-red-50 hover:text-red-600"
+                                            className={`flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-base font-bold transition-all ${lang.font
+                                                } ${currentLangCode === lang.code
+                                                    ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                                                    : "text-gray-800 hover:bg-red-50 hover:text-red-600"
                                                 }`}
                                         >
                                             <span>{lang.name}</span>
@@ -208,7 +255,7 @@ export default function Navbar() {
                 </div>
             </div>
 
-            {/* 3. قائمة الموبايل مع تلوين الرابط النشط */}
+            {/* 3. قائمة الموبايل */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
@@ -228,22 +275,22 @@ export default function Navbar() {
                                         animate={{ x: 0, opacity: 1 }}
                                         transition={{ delay: idx * 0.05 }}
                                     >
-                                        <Link
-                                            to={link.href}
-                                            onClick={() => {
-                                                setActiveNav(link.href);
-                                                setIsMobileMenuOpen(false);
-                                            }}
+                                        <a
+                                            href={link.href}
+                                            onClick={(e) => handleNavClick(e, link.href)}
                                             className={`flex items-center gap-4 rounded-xl px-5 py-3.5 text-xl font-bold transition-all ${isActive
-                                                ? "bg-red-600 text-white shadow-lg shadow-red-600/50"
-                                                : "text-gray-200 hover:bg-red-600/30 hover:text-white"
+                                                    ? "bg-red-600 text-white shadow-lg shadow-red-600/50"
+                                                    : "text-gray-200 hover:bg-red-600/30 hover:text-white"
                                                 }`}
                                         >
-                                            <span className={`text-2xl ${isActive ? "text-white" : "text-yellow-400"}`}>
+                                            <span
+                                                className={`text-2xl ${isActive ? "text-white" : "text-yellow-400"
+                                                    }`}
+                                            >
                                                 {link.icon}
                                             </span>
                                             <span>{link.label}</span>
-                                        </Link>
+                                        </a>
                                     </motion.div>
                                 );
                             })}
