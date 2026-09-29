@@ -204,7 +204,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // استيراد الصور
 import img1 from "/Services/s1.png";
 import img2 from "/Services/s2.png";
-import img3 from "/Services/s1.png";
+import img3 from "/Services/s3.png";
 
 const images = [img1, img2, img3];
 
