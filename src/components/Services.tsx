@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { motion, type Variants } from "framer-motion";
 import Data from "../utils/data";
 import ServiceCard from "./ServiceCard";
+import i18n from "../i18n";
 
 interface CardDataItem {
   id: string | number;
@@ -32,7 +33,7 @@ const cardVariants: Variants = {
     },
   },
 };
-
+const lang = i18n.language
 export default function Services(): JSX.Element {
   const { t, i18n } = useTranslation();
 
@@ -75,7 +76,7 @@ export default function Services(): JSX.Element {
                 key={cardItem.id ?? index}
                 variants={cardVariants}
                 whileHover={{ y: -6 }}
-                className="group relative bg-white rounded-3xl p-6 sm:p-7 border border-gray-100 shadow-[0_2px_2px_rgba(0,0,0)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-red-600 transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                className="group relative bg-white rounded-3xl p-5 sm:p-7 border border-gray-100 shadow-[0_2px_2px_rgba(0,0,0)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-red-600 transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
                 <div>
                   {/* رقم البطاقة في أعلى الزاوية فوق الصورة بشكل مستقل */}
@@ -92,7 +93,7 @@ export default function Services(): JSX.Element {
                   <div className="mb-4 space-y-2">
                     <h3
                       lang={i18n.language}
-                      className="text-2xl font-bold text-[var(--color-brand-red)] transition-colors duration-300 leading-snug"
+                      className={`${lang === "ja" ? "text-3xl" : "text-2xl"}  font-bold text-[var(--color-brand-red)] transition-colors duration-300 leading-snug`}
                     >
                       {t(`Services-card${cardNum}T`)}
                     </h3>
@@ -100,7 +101,7 @@ export default function Services(): JSX.Element {
                     {hasSecondaryTitle && (
                       <h4
                         lang={i18n.language}
-                        className="text-2xl font-semibold text-[var(--color-brand-red)]"
+                        className={`${lang === "ja" ? "text-3xl" : "text-2xl"} font-semibold text-[var(--color-brand-red)]`}
                       >
                         {t(`Services-card${cardNum}T2`)}
                       </h4>

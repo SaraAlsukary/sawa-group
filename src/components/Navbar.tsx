@@ -143,7 +143,7 @@ export default function Navbar() {
             <div className="bg-gradient-to-r from-gray-950 via-red-950 to-gray-950 text-white py-3.5 md:py-4 border-b-2 border-red-600 shadow-inner">
                 <div className="container mx-auto flex flex-row md:flex-col flex-wrap items-center justify-center px-4 sm:px-6 gap-3">
                     <div className="flex items-center gap-3 md:gap-4">
-                        <span className="bg-red-600 text-white px-3.5 py-1.5 rounded-lg text-xs md:text-base font-black uppercase tracking-wider shadow-lg border border-yellow-400/30">
+                        <span className="bg-red-600 text-white px-3.5 py-1.5 rounded-lg text-xs md:text-base font-black uppercase tracking-wider shadow-lg border text-center border-yellow-400/30">
                             {t("Header-h")}
                         </span>
                         <span className="text-gray-100 font-extrabold text-base md:text-2xl drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
