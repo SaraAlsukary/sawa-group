@@ -7,7 +7,7 @@ export default function About() {
 
     // التحقق من اتجاه اللغة (RTL للغة العربية، LTR للغات الأخرى)
     const isRtl = i18n.dir() === "rtl";
-    const lang = i18n.language
+    // const lang = i18n.language
     return (
         <section id="about" className="relative w-full py-20 sm:py-32 bg-slate-50/50 text-slate-900 overflow-hidden">
 
