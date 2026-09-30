@@ -43,7 +43,7 @@ export default function Footer(): JSX.Element {
                         <motion.img
                             whileHover={{ scale: 1.05 }}
                             transition={{ duration: 0.2 }}
-                            className="h-16 sm:h-40 w-auto object-contain brightness-110"
+                            className="h-35 sm:h-40 w-auto object-contain brightness-110"
                             src={logo}
                             alt="Sawa Group Logo"
                         />
