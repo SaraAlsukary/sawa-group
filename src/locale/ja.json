@@ -27,22 +27,41 @@
   "Vision-h": "私たちのビジョン :",
   "Vision-p": "　日本は、アラブ世界から地理的に遠く離れた国のひとつであり、そのことが言語的障壁や文化的障壁をはじめとする両者の関係発展を妨げる多くの障壁となっています。しかし、グローバリゼーションの時代において世界は小さな村のようになり、国家やその人々がそれを望むなら、広く各地を結びつけ国家間の文化的・商業的交流を深めることは容易になりました。私たち「SAWA GROUP」は、日本の文化、言語及び製品を通じて日本をこれまで以上にアラブ世界に近づけるため、地理的距離や言語的・文化的障壁を乗り越え、日本とアラブ世界を結ぶ架け橋になることを目指しています。",
   "Services-h": "主なサービス :",
-  "Services-card1T": "翻訳及び校正",
-  "Services-card2T": "アラビア語・日本語教育",
-  "Services-card3T": "デスクトップパブリッシング（ＤＴＰ）",
-  "Services-card4T": "音声録音及び文字起こし",
-  "Services-card5T": "ニュースレポートの企画及び制作",
-  "Services-card5T2": "",
-  "Services-card6T": "観光ツアーの企画及び準備",
+"Services-card1T": "翻訳及び校正",
+  "Services-card1T2": "",
+
+  "Services-card2T": "アラビア語・日本語の",
+  "Services-card2T2": "語学教育",
+
+  "Services-card3T": "デスクトップ",
+  "Services-card3T2": "パブリッシング（DTP）",
+
+  "Services-card4T": "音声録音及び",
+  "Services-card4T2": "文字起こし",
+
+  "Services-card5T": "ニュースレポートの",
+  "Services-card5T2": "企画及び制作",
+
+  "Services-card6T": "観光ツアーの",
+  "Services-card6T2": "企画及び準備",
+
   "Services-card7T": "学術及び文化に関する",
-  "Services-card7T2": "コンサルティングの提供",
-  "Services-card8T": "学術及び文化交流支援",
-  "Services-card8T2": "",
-  "Services-card9T": "ウェブサイトへの言語の追加",
-  "Services-card10T": "デザイン及びプログラミング",
-  "Services-card11T": "投資及びビジネスに関する",
-  "Services-card11T2": "コンサルティングの提供",
+  "Services-card7T2": "コンサルティング",
+
+  "Services-card8T": "学術及び文化の",
+  "Services-card8T2": "交流支援",
+
+  "Services-card9T": "ウェブサイトへの",
+  "Services-card9T2": "言語追加支援",
+
+  "Services-card10T": "デザイン及び",
+  "Services-card10T2": "プログラミング",
+
+  "Services-card11T": "投資及びビジネスの",
+  "Services-card11T2": "コンサルティング",
+
   "Services-card12T": "輸入及び輸出",
+  "Services-card12T2": "",
   "Services-card1": "アラビア語・日本語のテキスト翻訳（編集）及び同時・逐次通訳、アラビア語・日本語で書かれたテキストまたはアラビア語・日本語に翻訳されたテキストまたはアラビア語・日本語から翻訳されたテキストの校正",
   "Services-card2": "非母語話者に対する言語教育を専門とする経験豊富な講師によって多様なレベル・年齢層の学習者のニーズに合わせて行われる対面及びリモート（オンライン）アラビア語・日本語教育",
   "Services-card3": "個人・企業の広告ポスター、各種製品マニュアル、パンフレット、学術・教育資料などの文書の作成及び発行を支援するためにＤＴＰオペレーターが提供するテキストコンテンツの準備、制作、翻訳及び発行などのＤＴＰサービス",

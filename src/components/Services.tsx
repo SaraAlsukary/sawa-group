@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { motion, type Variants } from "framer-motion";
 import Data from "../utils/data";
 import ServiceCard from "./ServiceCard";
-import i18n from "../i18n";
 
 interface CardDataItem {
   id: string | number;
@@ -33,11 +32,11 @@ const cardVariants: Variants = {
     },
   },
 };
-const lang = i18n.language
+
 export default function Services(): JSX.Element {
   const { t, i18n } = useTranslation();
-
-  const secondaryTitleCards = [5, 7, 8, 11];
+  // نقل المعرف ليكون داخل المكون حتى يتحدث فور تغيير اللغة
+  const lang = i18n.language; 
 
   return (
     <section
@@ -53,7 +52,7 @@ export default function Services(): JSX.Element {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-14 sm:mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[var(--color-brand-red)] leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[var(--color-brand-red)] leading-tight">
             {t("Services-h")}
           </h2>
           <div className="h-1.5 w-16 bg-[var(--color-brand-red)] rounded-full mx-auto mt-4" />
@@ -69,7 +68,10 @@ export default function Services(): JSX.Element {
         >
           {(Data as CardDataItem[]).map((cardItem, index) => {
             const cardNum = index + 1;
-            const hasSecondaryTitle = secondaryTitleCards.includes(cardNum);
+            
+            // جلب قيمة السطر الثاني والتحقق مما إذا كانت تحتوي على نص حقيقي
+            const secondaryTitle = t(`Services-card${cardNum}T2`, { defaultValue: "" });
+            const hasSecondaryTitle = Boolean(secondaryTitle && secondaryTitle.trim() !== "");
 
             return (
               <motion.div
@@ -79,39 +81,40 @@ export default function Services(): JSX.Element {
                 className="group relative bg-white rounded-3xl p-5 sm:p-7 border border-gray-100 shadow-[0_2px_2px_rgba(0,0,0)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-red-600 transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
                 <div>
-                  {/* رقم البطاقة في أعلى الزاوية فوق الصورة بشكل مستقل */}
+                  {/* رقم البطاقة */}
                   <span className="absolute top-8 right-8 z-10 text-4xl font-extrabold text-gray-200/80 group-hover:text-[var(--color-brand-red)] transition-colors duration-300 pointer-events-none select-none">
                     {cardNum < 10 ? `0${cardNum}` : cardNum}
                   </span>
 
-                  {/* الصورة بملء عرض البطاقة */}
+                  {/* الصورة */}
                   <div className="mb-6 w-full">
                     <ServiceCard image={cardItem.Image} />
                   </div>
 
-                  {/* العناوين بحجم text-2xl */}
-                  <div className="mb-4 space-y-2">
+                  {/* العناوين */}
+                  <div className="mb-4 space-y-1">
                     <h3
-                      lang={i18n.language}
-                      className={`${lang === "ja" ? "text-[26px]" : lang === "en" ?"text-[26px]":"text-2xl"}  font-bold text-[var(--color-brand-red)] transition-colors duration-300 leading-snug`}
+                      lang={lang}
+                      className={`${lang === "ja" || lang === "en" ? "text-[22px]" : "text-2xl"} font-bold text-[var(--color-brand-red)] transition-colors duration-300 leading-snug`}
                     >
                       {t(`Services-card${cardNum}T`)}
                     </h3>
 
+                    {/* إظهار السطر الثاني تلقائياً إذا كان متوفراً في ملف الترجمة */}
                     {hasSecondaryTitle && (
                       <h4
-                        lang={i18n.language}
-                        className={`${lang === "ja" ? "text-[26px]" : lang === "en" ?"text-[26px]":"text-2xl"} font-semibold text-[var(--color-brand-red)]`}
+                        lang={lang}
+                        className={`${lang === "ja" || lang === "en" ? "text-[22px]" : "text-2xl"} font-semibold text-[var(--color-brand-red)] leading-snug`}
                       >
-                        {t(`Services-card${cardNum}T2`)}
+                        {secondaryTitle}
                       </h4>
                     )}
                   </div>
 
-                  {/* الوصف بحجم text-xl */}
+                  {/* الوصف */}
                   <p
-                    lang={i18n.language}
-                    className={`text-gray-600 text-xl leading-relaxed font-normal `}
+                    lang={lang}
+                    className="text-gray-600 text-xl leading-relaxed font-normal"
                   >
                     {t(`Services-card${cardNum}`)}
                   </p>
