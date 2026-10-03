@@ -111,7 +111,7 @@ export default function Services(): JSX.Element {
                   {/* الوصف بحجم text-xl */}
                   <p
                     lang={i18n.language}
-                    className={`text-gray-600 text-xl leading-relaxed font-normal text-justify`}
+                    className={`text-gray-600 text-xl leading-relaxed font-normal `}
                   >
                     {t(`Services-card${cardNum}`)}
                   </p>

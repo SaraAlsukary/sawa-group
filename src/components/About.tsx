@@ -49,7 +49,7 @@ export default function About() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className={`text-lg sm:text-xl text-slate-600 font-normal leading-relaxed text-justify ${isRtl ? "pr-4" : "pl-4"
+                        className={`text-lg sm:text-xl text-slate-600 font-normal leading-relaxed ${isRtl ? "pr-4" : "pl-4"
                             }`}
                     >
                         {t("About-p")}
@@ -89,7 +89,7 @@ export default function About() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className={`text-lg sm:text-xl text-slate-600 font-normal leading-relaxed text-justify
+                        className={`text-lg sm:text-xl text-slate-600 font-normal leading-relaxed
                         ${isRtl ? "pr-4" : "pl-4"
                             }`}
                         lang={i18n.language}
