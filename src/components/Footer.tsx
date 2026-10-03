@@ -53,7 +53,7 @@ export default function Footer(): JSX.Element {
                     <div className="md:col-span-8 lg:col-span-9 w-full">
                         <h5
                             lang={i18n.language}
-                            className="text-2xl font-bold text-white mb-6 text-center md:text-start"
+                            className="text-[20px] md:text-2xl font-bold text-white mb-6 text-center md:text-start"
                         >
                             {t("Adress")}
                         </h5>

@@ -5,24 +5,28 @@
   --color-brand-red: #cb011a;
   --color-brand-dark: #000000;
 
-  /* ربط أسماء الخطوط بـ Tailwind v4 لاستخدام كلاسات مثل font-arabic و font-zen */
-  --font-zen: 'Zen Antique', serif;
-  --font-japanese: 'Noto Serif JP', serif;
-  --font-arabic: 'Scheherazade New', serif;
-  --font-vollkorn: 'Vollkorn SC', serif;
+  --font-zen: 'JapaneseNumbersFont', 'Zen Antique', serif;
+  --font-japanese: 'JapaneseNumbersFont', 'Noto Serif JP', serif;
+  --font-arabic: 'JapaneseNumbersFont', 'Scheherazade New', serif;
+  --font-vollkorn: 'JapaneseNumbersFont', 'Vollkorn SC', serif;
 }
+
+
 
 /* 1. استخدام / بدلاً من ./ لتحديد المجلد من جذر public */
 @font-face {
   font-family: 'Zen Antique';
   src: url('/Fonts/LucidaUnicodeCalligraphy.woff2') format('woff2');
   font-display: swap;
+  font-weight: bold;
 }
 
 @font-face {
   font-family: 'Noto Serif JP';
   src: url('/Fonts/yu-mincho-regular.woff2') format('woff2');
   font-display: swap;
+  font-weight: bold;
+
 }
 
 @font-face {
@@ -30,20 +34,46 @@
   src: url('/Fonts/ScheherazadeNew-Bold.ttf') format('truetype');
   /* تم تصحيح الصيغة إلى truetype */
   font-weight: bold;
-  font-style: normal;
-  font-display: swap;
 }
+
 
 @font-face {
   font-family: 'Vollkorn SC';
   src: url('/Fonts/LucidaUnicodeCalligraphy.woff2') format('truetype');
   /* تم تصحيح الصيغة إلى truetype */
+  font-weight: bold;
+  /* هذا النطاق يخبر المتصفح باستخدام الخط للحروف الإنجليزية فقط واستثناء الأرقام 0-9 */
+  unicode-range: U+0041-005A, U+0061-007A, U+0020-002F, U+003A-0040;
+}
+
+@font-face {
+  font-family: 'JapaneseNumbersFont';
+  /* تكبير الأرقام فقط بنسبة مئوية تتناسب مع ارتفاع الأحرف المجاورة */
+  src: url('/Fonts/yu-mincho-regular.woff2') format('woff2');
+  unicode-range: U+0030-0039, U+002B, U+002D, U+FF10-FF19;
+
+  /* تكبير الأرقام فقط بـ 135% لتعوض فرق المقياس عن العربي والإنجليزي */
+  size-adjust: 100%;
   font-display: swap;
 }
 
-* {
-  font-family: "Zen Antique", "Vollkorn SC", "Noto Serif JP", "Scheherazade New";
+/* * {
 
+  font-family: "Zen Antique", "Vollkorn SC", "Noto Serif JP", "Scheherazade New";
+} */
+*,
+*::before,
+*::after,
+input,
+textarea,
+button,
+select {
+  font-family:
+    'JapaneseNumbersFont',
+    'Vollkorn SC',
+    'Scheherazade New',
+    'Noto Serif JP',
+    serif !important;
 }
 
 html {
@@ -66,23 +96,30 @@ html {
 
 /* خلفية مسار التمرير (Track) */
 ::-webkit-scrollbar-track {
-  background: #09090b; /* أسود دافئ داكن */
+  background: #09090b;
+  /* أسود دافئ داكن */
 }
 
 /* المقبض المتحرك (Thumb) */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #dc2626 0%, #18181b 100%); /* تدرج من الأحمر إلى الأسود */
-  border-radius: 9999px; /* حواف دائرية بالكامل */
-  border: 2px solid #09090b; /* مسافة فاصلة بين المقبض والمسار */
+  background: linear-gradient(180deg, #dc2626 0%, #18181b 100%);
+  /* تدرج من الأحمر إلى الأسود */
+  border-radius: 9999px;
+  /* حواف دائرية بالكامل */
+  border: 2px solid #09090b;
+  /* مسافة فاصلة بين المقبض والمسار */
 }
 
 /* عند حركية الماوس فوق المقبض (Hover) */
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%); /* أحمر أكثر إشراقاً */
+  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+  /* أحمر أكثر إشراقاً */
 }
 
 /* 2. متصفح فايرفوكس (Firefox) */
 * {
-  scrollbar-width: thin; /* شريط نحيف */
-  scrollbar-color: #dc2626 #09090b; /* لون المقبض ثم خلفية المسار */
+  scrollbar-width: thin;
+  /* شريط نحيف */
+  scrollbar-color: #dc2626 #09090b;
+  /* لون المقبض ثم خلفية المسار */
 }
