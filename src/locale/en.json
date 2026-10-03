@@ -67,5 +67,6 @@
     "Textarea-form": "Message Content",
     "File-form": "Select File",
     "Send-form": "SEND",
-    "desktop": "PC"
+    "desktop": "PC",
+    "copyright": "Copyright © {{currentYear}} SAWA GROUP. All Rights Reserved."
 }

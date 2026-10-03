@@ -90,7 +90,7 @@ export default function Footer(): JSX.Element {
                     className="mt-12 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-center  justify-center gap-4 text-center"
                 >
                     <p className="text-base sm:text-lg text-center text-gray-400 font-normal">
-                        Copyright © {currentYear} Sawa Group. All Rights Reserved
+                     {t('copyright', { currentYear })}
                     </p>
                 </motion.div>
             </div>

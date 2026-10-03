@@ -66,5 +66,6 @@
     "Textarea-form" : "محتوى الرسالة",
     "File-form" : "اختيار ملف",
     "Send-form" : "إرسال",
-    "desktop" : "PC"
+    "desktop" : "PC",
+  "copyright": "حقوق النشر © {{currentYear}} SAWA GROUP. جميع الحقوق محفوظة."
 }

@@ -21,9 +21,9 @@ i18n
     supportedLngs: ["en", "ar", "ja"],
     fallbackLng: "en",
     debug: true,
-    // تم الإبقاء على كائن detection واحد فقط وترتيب الأولوية المناسب
     detection: {
-      order: ["path", "cookie", "htmlTag", "subdomain"],
+      // تم إضافة "navigator" للكشف عن لغة متصفح/جهاز المستخدم
+      order: ["path", "cookie", "navigator", "htmlTag", "subdomain"],
       caches: ["cookie"],
     },
     backend: {
