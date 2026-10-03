@@ -20,10 +20,14 @@ i18n
     resources,
     supportedLngs: ["en", "ar", "ja"],
     fallbackLng: "en",
+    
+    // 1. إجبار المكتبة على أخذ رمز اللغة فقط (تحويل en-US إلى en)
+    load: "languageOnly", 
+
     debug: true,
     detection: {
-      // تم إضافة "navigator" للكشف عن لغة متصفح/جهاز المستخدم
-      order: ["path", "cookie", "navigator", "htmlTag", "subdomain"],
+      // 2. الترتيب الصحيح: الكوكيز أولاً (إذا اختار المستخدم لغة سابقاً)، ثم لغة الجهاز
+      order: ["cookie", "navigator", "path", "htmlTag"],
       caches: ["cookie"],
     },
     backend: {
