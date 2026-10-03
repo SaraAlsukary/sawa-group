@@ -37,7 +37,7 @@ export default function About() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className={`text-3xl sm:text-4xl md:text-5xl font-black text-[var(--color-brand-red)] leading-tight ${isRtl ? "pr-4" : "pl-4"
+                        className={`text-[27px] sm:text-4xl md:text-5xl font-black text-[var(--color-brand-red)] leading-tight ${isRtl ? "pr-4" : "pl-4"
                             }`}
                     >
                         {t("About-h")}
@@ -77,7 +77,7 @@ export default function About() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className={`text-3xl sm:text-4xl md:text-5xl font-black text-[var(--color-brand-red)] leading-tight ${isRtl ? "pr-4" : "pl-4"
+                        className={`text-[27px] sm:text-4xl md:text-5xl font-black text-[var(--color-brand-red)] leading-tight ${isRtl ? "pr-4" : "pl-4"
                             }`}
                     >
                         {t("Vision-h")}
