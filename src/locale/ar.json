@@ -68,5 +68,8 @@
     "File-form": "اختيار ملف",
     "Send-form": "إرسال",
     "desktop": "PC",
-    "copyright": "  جميع الحقوق محفوظة. © {{currentYear}} SAWA GROUP"
+    "copyright": "  جميع الحقوق محفوظة. © {{currentYear}} SAWA GROUP",
+    "Form-success-message": "تم إرسال رسالتك بنجاح! سننتواصل معك في أقرب وقت.",
+    "Form-error-message": "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.",
+    "Sending-form": "جاري الإرسال..."
 }

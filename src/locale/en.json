@@ -68,5 +68,8 @@
     "File-form": "Select File",
     "Send-form": "SEND",
     "desktop": "PC",
-    "copyright": "Copyright © {{currentYear}} SAWA GROUP. All Rights Reserved."
+    "copyright": "Copyright © {{currentYear}} SAWA GROUP. All Rights Reserved.",
+    "Form-success-message": "Your message has been sent successfully! We will get back to you soon.",
+    "Form-error-message": "An error occurred while sending. Please try again later.",
+    "Sending-form": "Sending..."
 }
