@@ -93,7 +93,7 @@ export default function Services(): JSX.Element {
                   <div className="mb-4 space-y-2">
                     <h3
                       lang={i18n.language}
-                      className={`${lang === "ja" ? "text-3xl" : "text-2xl"}  font-bold text-[var(--color-brand-red)] transition-colors duration-300 leading-snug`}
+                      className={`${lang === "ja" ? "text-[26px]" : lang === "en" ?"text-[26px]":"text-2xl"}  font-bold text-[var(--color-brand-red)] transition-colors duration-300 leading-snug`}
                     >
                       {t(`Services-card${cardNum}T`)}
                     </h3>
@@ -101,7 +101,7 @@ export default function Services(): JSX.Element {
                     {hasSecondaryTitle && (
                       <h4
                         lang={i18n.language}
-                        className={`${lang === "ja" ? "text-3xl" : "text-2xl"} font-semibold text-[var(--color-brand-red)]`}
+                        className={`${lang === "ja" ? "text-[26px]" : lang === "en" ?"text-[26px]":"text-2xl"} font-semibold text-[var(--color-brand-red)]`}
                       >
                         {t(`Services-card${cardNum}T2`)}
                       </h4>

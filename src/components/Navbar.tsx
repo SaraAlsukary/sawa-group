@@ -172,7 +172,7 @@ export default function Navbar() {
                         alt="Sawa Group Logo"
                         className="h-12 w-auto object-contain sm:h-14 drop-shadow-md"
                     />
-                    <span className="text-2xl md:text-3xl font-black font-arabic bg-[linear-gradient(-40deg,#eab308_35%,#dc2626_70%)] drop-shadow-[0_0px_0.5px_rgba(0,0,0,0.8)] bg-clip-text text-transparent hover:brightness-125 transition-all tracking-tight hidden sm:block">
+                    <span className="text-2xl md:text-3xl pr-2 font-black font-arabic bg-[linear-gradient(-40deg,#eab308_35%,#dc2626_70%)] drop-shadow-[0_0px_0.5px_rgba(0,0,0,0.8)] bg-clip-text text-transparent hover:brightness-125 transition-all tracking-tight hidden sm:block">
                         {t("Header-h")}
                     </span>
                 </a>

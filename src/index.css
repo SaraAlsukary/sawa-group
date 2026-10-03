@@ -15,13 +15,13 @@
 /* 1. استخدام / بدلاً من ./ لتحديد المجلد من جذر public */
 @font-face {
   font-family: 'Zen Antique';
-  src: url('/Fonts/ZenAntiqueSoft-Regular.woff2') format('woff2');
+  src: url('/Fonts/LucidaUnicodeCalligraphy.woff2') format('woff2');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Noto Serif JP';
-  src: url('/Fonts/NotoSerifJP-Regular.woff2') format('woff2');
+  src: url('/Fonts/yu-mincho-regular.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -36,7 +36,7 @@
 
 @font-face {
   font-family: 'Vollkorn SC';
-  src: url('/Fonts/Vollkorn-Regular.ttf') format('truetype');
+  src: url('/Fonts/LucidaUnicodeCalligraphy.woff2') format('truetype');
   /* تم تصحيح الصيغة إلى truetype */
   font-display: swap;
 }
