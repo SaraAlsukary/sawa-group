@@ -126,8 +126,8 @@ export default function Navbar() {
         >
             {/* 1. الشريط العلوي فوق النافبار: Header-p بخلفية بيضاء ولون أصفر */}
             <div className="relative z-10 bg-white text-yellow-500 py-2.5 md:py-3 border-b border-gray-200">
-                <div className="container mx-auto flex items-center justify-center px-4 sm:px-6 text-center">
-                    <span className="font-extrabold text-sm sm:text-base md:text-xl text-red-500 drop-shadow-[0_0.5px_0.5px_rgba(0,0,0,0.25)] mx-2">
+                <div className="container mx-auto flex flex-wrap items-center justify-center gap-2 px-4 sm:px-6 text-center">
+                    <span className="shrink-0 font-extrabold text-sm sm:text-base md:text-xl text-red-500 drop-shadow-[0_0.5px_0.5px_rgba(0,0,0,0.25)]">
                         SAWA GROUP
                     </span>
                     <span className="font-extrabold text-sm sm:text-base md:text-xl text-yellow-500 drop-shadow-[0_0.5px_0.5px_rgba(0,0,0,0.25)]">
@@ -240,7 +240,7 @@ export default function Navbar() {
             </div>
 
             {/* 3. شريط أسفل النافبار: Main بخلفية بيضاء ولون أصفر */}
-            
+
 
             {/* 4. قائمة الموبايل */}
             <AnimatePresence>
