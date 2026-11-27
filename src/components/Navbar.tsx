@@ -189,7 +189,7 @@ export default function Navbar() {
                                 className="flex items-center gap-2 px-1 py-2 text-base font-bold text-gray-900 bg-gray-50 border-2 border-red-600/30 rounded-xl shadow-sm hover:border-red-600 hover:bg-red-50 transition-all active:scale-95"
                             >
                                 <MdOutlineLanguage className="text-2xl text-red-600" />
-                                {/* <span className={currentLang.font}>{currentLang.name}</span> */}
+                                <span className={`${currentLang.font} hidden lg:block`}>{currentLang.name}</span>
                                 <FaChevronDown
                                     className={`text-xs text-red-600 transition-transform duration-300 ${isLangDropdownOpen ? "rotate-180" : ""
                                         }`}
