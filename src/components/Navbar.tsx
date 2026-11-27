@@ -140,7 +140,7 @@ export default function Navbar() {
             className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur-xl bg-white/95 ${currentLang.font}`}
         >
             {/* 1. الشريط العلوي (Announcement Bar) */}
-            <div className="bg-gradient-to-r from-gray-950 via-red-950 to-gray-950 text-white py-3.5 md:py-4 border-b-2 border-red-600 shadow-inner">
+            {/* <div className="bg-gradient-to-r from-gray-950 via-red-950 to-gray-950 text-white py-3.5 md:py-4 border-b-2 border-red-600 shadow-inner">
                 <div className="container mx-auto flex flex-row md:flex-col flex-wrap items-center justify-center px-4 sm:px-6 gap-3">
                     <div className="flex items-center gap-3 md:gap-4">
                         <span className="bg-red-600 text-white px-3.5 py-1.5 rounded-lg text-xs md:text-base font-black uppercase tracking-wider shadow-lg border text-center border-yellow-400/30">
@@ -155,7 +155,7 @@ export default function Navbar() {
                         {t("Main")}
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* 2. شريط الملاحة الرئيسي Main Navigation Bar */}
             <div className="container mx-auto flex items-center justify-between px-4 py-3.5">
