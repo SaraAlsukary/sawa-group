@@ -237,13 +237,7 @@ export default function Navbar() {
             </div>
 
             {/* 3. شريط أسفل النافبار: Main بخلفية بيضاء ولون أصفر */}
-            <div className="relative z-10 bg-white  py-2 md:py-2.5 border-b border-gray-200">
-                <div className="container mx-auto flex items-center justify-center px-4 sm:px-6 text-center">
-                    <span className="text-xs sm:text-sm md:text-base font-black drop-shadow-[0_0.5px_0.5px_rgba(0,0,0,0.25)]">
-                        {t("Main")}
-                    </span>
-                </div>
-            </div>
+            
 
             {/* 4. قائمة الموبايل */}
             <AnimatePresence>

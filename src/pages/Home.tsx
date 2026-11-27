@@ -8,6 +8,7 @@ import Services from "../components/Services";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import FloatingButtons from "../components/FloatingButtons";
+import Main from "../components/Main";
 
 
 
@@ -18,6 +19,7 @@ export default function Home() {
       <Head />
       <Navbar />
       <Landing />
+      <Main />
       <FloatingButtons />
       <About />
       <Services />
