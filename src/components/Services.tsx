@@ -36,7 +36,7 @@ const cardVariants: Variants = {
 export default function Services(): JSX.Element {
   const { t, i18n } = useTranslation();
   // نقل المعرف ليكون داخل المكون حتى يتحدث فور تغيير اللغة
-  const lang = i18n.language; 
+  const lang = i18n.language;
 
   return (
     <section
@@ -68,7 +68,7 @@ export default function Services(): JSX.Element {
         >
           {(Data as CardDataItem[]).map((cardItem, index) => {
             const cardNum = index + 1;
-            
+
             // جلب قيمة السطر الثاني والتحقق مما إذا كانت تحتوي على نص حقيقي
             const secondaryTitle = t(`Services-card${cardNum}T2`, { defaultValue: "" });
             const hasSecondaryTitle = Boolean(secondaryTitle && secondaryTitle.trim() !== "");
@@ -114,7 +114,7 @@ export default function Services(): JSX.Element {
                   {/* الوصف */}
                   <p
                     lang={lang}
-                    className="text-gray-600 text-xl leading-relaxed font-normal"
+                    className="text-black stroke-3 text-xl leading-relaxed font-bold"
                   >
                     {t(`Services-card${cardNum}`)}
                   </p>
