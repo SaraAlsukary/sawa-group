@@ -35,13 +35,12 @@ export default function Navbar() {
 
     // 3. تحديث الرابط النشط عند السكرول
     useEffect(() => {
+        const sectionIds = ["home", "about", "Services", "Contact"];
+
         const handleScroll = () => {
-            const sections = navLinks
-                .map((l) => l.href.replace("#", ""))
-                .filter(Boolean);
             const scrollPosition = window.scrollY + 200;
 
-            for (const section of sections) {
+            for (const section of sectionIds) {
                 const el = document.getElementById(section);
                 if (el) {
                     const top = el.offsetTop;
@@ -57,7 +56,7 @@ export default function Navbar() {
             }
         };
 
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -97,8 +96,7 @@ export default function Navbar() {
         setIsMobileMenuOpen(false);
     };
 
-    // دالة النقر للتنقل السلس المصلحة
-    // دالة النقر للتنقل السلس مع مراعاة ارتفاع الهيدر الثابت
+    // دالة النقر للتنقل السلس (بدون خصم هيدر ثابت لأن الهيدر غير ثابت)
     const handleNavClick = (
         e: React.MouseEvent<HTMLAnchorElement>,
         href: string
@@ -118,144 +116,136 @@ export default function Navbar() {
             document.getElementById(targetId.toLowerCase());
 
         if (targetElement) {
-            setTimeout(() => {
-                // 1. حساب ارتفاع الهيدر الثابت تلقائياً
-                const headerElement = document.querySelector("header");
-                const headerHeight = headerElement ? headerElement.offsetHeight : 140;
-
-                // 2. حساب موقع القسم بالنسبة لأعلى الصفحة مطروحاً منه ارتفاع الهيدر
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerHeight;
-
-                // 3. السكرول للموقع الموزون
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth",
-                });
-            }, 100);
+            targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
         }
     };
+
     return (
         <header
-            className={`sticky top-0 z-50 w-full shadow-xl backdrop-blur-xl bg-white/95 ${currentLang.font}`}
+            className={`relative z-50 w-full shadow-xl bg-white ${currentLang.font}`}
         >
-            {/* 1. الشريط العلوي (Announcement Bar) */}
-            {/* <div className="bg-gradient-to-r from-gray-950 via-red-950 to-gray-950 text-white py-3.5 md:py-4 border-b-2 border-red-600 shadow-inner">
-                <div className="container mx-auto flex flex-row md:flex-col flex-wrap items-center justify-center px-4 sm:px-6 gap-3">
-                    <div className="flex items-center gap-3 md:gap-4">
-                        <span className="bg-red-600 text-white px-3.5 py-1.5 rounded-lg text-xs md:text-base font-black uppercase tracking-wider shadow-lg border text-center border-yellow-400/30">
-                            {t("Header-h")}
-                        </span>
-                        <span className="text-gray-100 font-extrabold text-base md:text-2xl drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-                            {t("Header-p")}
-                        </span>
-                    </div>
-
-                    <div className="text-xs md:text-base font-black text-yellow-300 bg-white/10 px-4 py-1.5 rounded-full border border-yellow-400/40 shadow-inner">
-                        {t("Main")}
-                    </div>
-                </div>
-            </div> */}
-
-            {/* 2. شريط الملاحة الرئيسي Main Navigation Bar */}
-            <div className="container mx-auto flex items-center justify-between px-4 py-3.5">
-                {/* اللوجو والعنوان */}
-                <a
-                    href="#"
-                    onClick={(e) => handleNavClick(e, "#")}
-                    className="flex items-center gap-3 group"
-                >
-                    <motion.img
-                        whileHover={{ scale: 1.08, rotate: 2 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        src="/Logo/logo.png"
-                        alt="Sawa Group Logo"
-                        className="h-12 w-auto object-contain sm:h-14 drop-shadow-md"
-                    />
-                    <span className="text-2xl md:text-3xl pr-2 font-black font-arabic bg-[linear-gradient(-40deg,#eab308_35%,#dc2626_70%)] drop-shadow-[0_0px_0.5px_rgba(0,0,0,0.8)] bg-clip-text text-transparent hover:brightness-125 transition-all tracking-tight hidden sm:block">
-                        {t("Header-h")}
+            {/* 1. الشريط العلوي فوق النافبار: Header-p بخلفية بيضاء ولون أصفر */}
+            <div className="relative z-10 bg-white text-yellow-500 py-2.5 md:py-3 border-b border-gray-200">
+                <div className="container mx-auto flex items-center justify-center px-4 sm:px-6 text-center">
+                    <span className="font-extrabold text-sm sm:text-base md:text-xl text-yellow-500 drop-shadow-[0_0.5px_0.5px_rgba(0,0,0,0.25)]">
+                        {t("Header-p")}
                     </span>
-                </a>
-
-                {/* روابط الكمبيوتر */}
-                <nav className="hidden lg:flex items-center gap-2 xl:gap-4">
-                    {navLinks.map((link, idx) => {
-                        const isActive = activeNav === link.href;
-                        return (
-                            <a
-                                key={idx}
-                                href={link.href}
-                                onClick={(e) => handleNavClick(e, link.href)}
-                                className={`flex items-center gap-2.5 px-5 py-2.5 text-xl font-bold rounded-xl transition-all duration-300 ${isActive
-                                        ? "bg-red-600 text-white shadow-lg shadow-red-600/40 scale-105"
-                                        : "text-gray-800 hover:bg-red-50 hover:text-red-600 hover:scale-105"
-                                    }`}
-                            >
-                                <span
-                                    className={`text-xl transition-colors ${isActive ? "text-white" : "text-red-600"
-                                        }`}
-                                >
-                                    {link.icon}
-                                </span>
-                                <span>{link.label}</span>
-                            </a>
-                        );
-                    })}
-                </nav>
-
-                {/* محول اللغات وزر الموبايل */}
-                <div className="flex items-center gap-3">
-                    <div className="relative" ref={langDropdownRef}>
-                        <button
-                            onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                            className="flex items-center gap-2 px-4 py-2 text-base font-bold text-gray-900 bg-gray-50 border-2 border-red-600/30 rounded-xl shadow-sm hover:border-red-600 hover:bg-red-50 transition-all active:scale-95"
-                        >
-                            <MdOutlineLanguage className="text-2xl text-red-600" />
-                            <span className={currentLang.font}>{currentLang.name}</span>
-                            <FaChevronDown
-                                className={`text-xs text-red-600 transition-transform duration-300 ${isLangDropdownOpen ? "rotate-180" : ""
-                                    }`}
-                            />
-                        </button>
-
-                        <AnimatePresence>
-                            {isLangDropdownOpen && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 12, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: 12, scale: 0.95 }}
-                                    transition={{ duration: 0.15 }}
-                                    className="absolute end-0 mt-2 z-50 w-44 overflow-hidden rounded-2xl border-2 border-red-600/20 bg-white p-2 shadow-2xl"
-                                >
-                                    {languages.map((lang) => (
-                                        <button
-                                            key={lang.code}
-                                            onClick={() => handleLanguageChange(lang.code)}
-                                            className={`flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-base font-bold transition-all ${lang.font
-                                                } ${currentLangCode === lang.code
-                                                    ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                                                    : "text-gray-800 hover:bg-red-50 hover:text-red-600"
-                                                }`}
-                                        >
-                                            <span>{lang.name}</span>
-                                        </button>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    <button
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-white text-2xl shadow-lg shadow-red-600/30 lg:hidden hover:bg-red-700 active:scale-95 transition-all"
-                        aria-label="Toggle Navigation"
-                    >
-                        {isMobileMenuOpen ? <FiX /> : <FiAlignJustify />}
-                    </button>
                 </div>
             </div>
 
-            {/* 3. قائمة الموبايل */}
+            {/* 2. شريط الملاحة الرئيسي Main Navigation Bar */}
+            <div className="relative z-30 bg-white border-b border-gray-100">
+                <div className="container mx-auto flex items-center justify-between px-4 py-3.5">
+                    {/* اللوجو والعنوان */}
+                    <a
+                        href="#"
+                        onClick={(e) => handleNavClick(e, "#")}
+                        className="flex items-center gap-3 group"
+                    >
+                        <motion.img
+                            whileHover={{ scale: 1.08, rotate: 2 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                            src="/Logo/logo.png"
+                            alt="Sawa Group Logo"
+                            className="h-12 w-auto object-contain sm:h-14 drop-shadow-md"
+                        />
+                        <span className="text-2xl md:text-3xl pr-2 font-black font-arabic bg-[linear-gradient(-40deg,#eab308_35%,#dc2626_70%)] drop-shadow-[0_0px_0.5px_rgba(0,0,0,0.8)] bg-clip-text text-transparent hover:brightness-125 transition-all tracking-tight hidden sm:block">
+                            {t("Header-h")}
+                        </span>
+                    </a>
+
+                    {/* روابط الكمبيوتر */}
+                    <nav className="hidden lg:flex items-center gap-2 xl:gap-4">
+                        {navLinks.map((link, idx) => {
+                            const isActive = activeNav === link.href;
+                            return (
+                                <a
+                                    key={idx}
+                                    href={link.href}
+                                    onClick={(e) => handleNavClick(e, link.href)}
+                                    className={`flex items-center gap-2.5 px-5 py-2.5 text-xl font-bold rounded-xl transition-all duration-300 ${isActive
+                                        ? "bg-red-600 text-white shadow-lg shadow-red-600/40 scale-105"
+                                        : "text-gray-800 hover:bg-red-50 hover:text-red-600 hover:scale-105"
+                                        }`}
+                                >
+                                    <span
+                                        className={`text-xl transition-colors ${isActive ? "text-white" : "text-red-600"
+                                            }`}
+                                    >
+                                        {link.icon}
+                                    </span>
+                                    <span>{link.label}</span>
+                                </a>
+                            );
+                        })}
+                    </nav>
+
+                    {/* محول اللغات وزر الموبايل */}
+                    <div className="flex items-center gap-3">
+                        <div className="relative z-40" ref={langDropdownRef}>
+                            <button
+                                type="button"
+                                onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                                className="flex items-center gap-2 px-1 py-2 text-base font-bold text-gray-900 bg-gray-50 border-2 border-red-600/30 rounded-xl shadow-sm hover:border-red-600 hover:bg-red-50 transition-all active:scale-95"
+                            >
+                                <MdOutlineLanguage className="text-2xl text-red-600" />
+                                {/* <span className={currentLang.font}>{currentLang.name}</span> */}
+                                <FaChevronDown
+                                    className={`text-xs text-red-600 transition-transform duration-300 ${isLangDropdownOpen ? "rotate-180" : ""
+                                        }`}
+                                />
+                            </button>
+
+                            <AnimatePresence>
+                                {isLangDropdownOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 12, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: 12, scale: 0.95 }}
+                                        transition={{ duration: 0.15 }}
+                                        className="absolute end-0 mt-2 z-[9999] w-44 overflow-hidden rounded-2xl border-2 border-red-600/20 bg-white p-2 shadow-2xl"
+                                    >
+                                        {languages.map((lang) => (
+                                            <button
+                                                type="button"
+                                                key={lang.code}
+                                                onClick={() => handleLanguageChange(lang.code)}
+                                                className={`flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-base font-bold transition-all ${lang.font
+                                                    } ${currentLangCode === lang.code
+                                                        ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                                                        : "text-gray-800 hover:bg-red-50 hover:text-red-600"
+                                                    }`}
+                                            >
+                                                <span>{lang.name}</span>
+                                            </button>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-white text-2xl shadow-lg shadow-red-600/30 lg:hidden hover:bg-red-700 active:scale-95 transition-all"
+                            aria-label="Toggle Navigation"
+                        >
+                            {isMobileMenuOpen ? <FiX /> : <FiAlignJustify />}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* 3. شريط أسفل النافبار: Main بخلفية بيضاء ولون أصفر */}
+            <div className="relative z-10 bg-white  py-2 md:py-2.5 border-b border-gray-200">
+                <div className="container mx-auto flex items-center justify-center px-4 sm:px-6 text-center">
+                    <span className="text-xs sm:text-sm md:text-base font-black drop-shadow-[0_0.5px_0.5px_rgba(0,0,0,0.25)]">
+                        {t("Main")}
+                    </span>
+                </div>
+            </div>
+
+            {/* 4. قائمة الموبايل */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
@@ -263,7 +253,7 @@ export default function Navbar() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden border-t-2 border-red-600 bg-black text-white lg:hidden shadow-2xl"
+                        className="relative z-20 overflow-hidden border-t-2 border-red-600 bg-black text-white lg:hidden shadow-2xl"
                     >
                         <div className="container mx-auto space-y-2 px-4 py-5">
                             {navLinks.map((link, idx) => {
@@ -279,8 +269,8 @@ export default function Navbar() {
                                             href={link.href}
                                             onClick={(e) => handleNavClick(e, link.href)}
                                             className={`flex items-center gap-4 rounded-xl px-5 py-3.5 text-xl font-bold transition-all ${isActive
-                                                    ? "bg-red-600 text-white shadow-lg shadow-red-600/50"
-                                                    : "text-gray-200 hover:bg-red-600/30 hover:text-white"
+                                                ? "bg-red-600 text-white shadow-lg shadow-red-600/50"
+                                                : "text-gray-200 hover:bg-red-600/30 hover:text-white"
                                                 }`}
                                         >
                                             <span
