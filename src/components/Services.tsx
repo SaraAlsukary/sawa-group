@@ -41,7 +41,7 @@ export default function Services(): JSX.Element {
   return (
     <section
       id="Services"
-      className="relative bg-white text-gray-900 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative bg-white text-gray-900 py-5 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto">
         {/* قسم العنوان الرئيسي */}
@@ -50,12 +50,12 @@ export default function Services(): JSX.Element {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-14 sm:mb-20"
+          className="text-center max-w-3xl mx-auto mb-4"
         >
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[var(--color-brand-red)] leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold stroke-3 tracking-tight text-[var(--color-brand-red)] leading-tight">
             {t("Services-h")}
           </h2>
-          <div className="h-1.5 w-16 bg-[var(--color-brand-red)] rounded-full mx-auto mt-4" />
+          <div className="h-1 w-16 bg-[var(--color-brand-red)] mx-auto mt-1" />
         </motion.div>
 
         {/* شبكة البطاقات */}
