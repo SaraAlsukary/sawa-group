@@ -11,8 +11,6 @@
   --font-vollkorn: 'JapaneseNumbersFont', 'Vollkorn SC', serif;
 }
 
-
-
 /* 1. استخدام / بدلاً من ./ لتحديد المجلد من جذر public */
 @font-face {
   font-family: 'Zen Antique';
@@ -25,23 +23,21 @@
   font-family: 'Noto Serif JP';
   src: url('/Fonts/yu-mincho-regular.woff2') format('woff2');
   font-display: swap;
-  font-weight: bold;
-
+  font-weight: 400 700;
 }
 
 @font-face {
   font-family: 'Scheherazade New';
   src: url('/Fonts/ScheherazadeNew-Bold.ttf') format('truetype');
-  /* تم تصحيح الصيغة إلى truetype */
   font-weight: bold;
+  font-display: swap;
 }
-
 
 @font-face {
   font-family: 'Vollkorn SC';
-  src: url('/Fonts/LucidaUnicodeCalligraphy.woff2') format('truetype');
-  /* تم تصحيح الصيغة إلى truetype */
+  src: url('/Fonts/LucidaUnicodeCalligraphy.woff2') format('woff2');
   font-weight: bold;
+  font-display: swap;
   /* هذا النطاق يخبر المتصفح باستخدام الخط للحروف الإنجليزية فقط واستثناء الأرقام 0-9 */
   unicode-range: U+0041-005A, U+0061-007A, U+0020-002F, U+003A-0040;
 }
@@ -52,15 +48,11 @@
   src: url('/Fonts/yu-mincho-regular.woff2') format('woff2');
   unicode-range: U+0030-0039, U+002B, U+002D, U+FF10-FF19;
 
-  /* تكبير الأرقام فقط بـ 135% لتعوض فرق المقياس عن العربي والإنجليزي */
+  /* تكبير الأرقام فقط لتعوض فرق المقياس عن العربي والإنجليزي */
   size-adjust: 100%;
   font-display: swap;
 }
 
-/* * {
-
-  font-family: "Zen Antique", "Vollkorn SC", "Noto Serif JP", "Scheherazade New";
-} */
 *,
 *::before,
 *::after,
@@ -76,11 +68,27 @@ select {
     serif !important;
 }
 
-html {
-  scroll-behavior: smooth;
-
+/* تكثيف الخط الياباني بصرياً لأنه Mincho رفيع ولا يوجد ملف Bold */
+:lang(ja) {
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke: 0.35px currentColor;
+  text-shadow: 0 0 0.4px currentColor;
 }
 
+:lang(ja) h1,
+:lang(ja) h2,
+:lang(ja) h3,
+:lang(ja) h4,
+:lang(ja) .font-bold,
+:lang(ja) .font-black {
+  -webkit-text-stroke: 0.65px currentColor;
+  text-shadow: 0 0 0.8px currentColor;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 /* ==========================================
    تصميم شريط التمرير (Custom Scrollbar)
@@ -98,29 +106,22 @@ html {
 /* خلفية مسار التمرير (Track) */
 ::-webkit-scrollbar-track {
   background: #09090b;
-  /* أسود دافئ داكن */
 }
 
 /* المقبض المتحرك (Thumb) */
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #dc2626 0%, #18181b 100%);
-  /* تدرج من الأحمر إلى الأسود */
   border-radius: 9999px;
-  /* حواف دائرية بالكامل */
   border: 2px solid #09090b;
-  /* مسافة فاصلة بين المقبض والمسار */
 }
 
-/* عند حركية الماوس فوق المقبض (Hover) */
+/* عند حركة الماوس فوق المقبض (Hover) */
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
-  /* أحمر أكثر إشراقاً */
 }
 
 /* 2. متصفح فايرفوكس (Firefox) */
 * {
   scrollbar-width: thin;
-  /* شريط نحيف */
   scrollbar-color: #dc2626 #09090b;
-  /* لون المقبض ثم خلفية المسار */
 }
