@@ -23,7 +23,7 @@
   font-family: 'Noto Serif JP';
   src: url('/Fonts/yu-mincho-regular.woff2') format('woff2');
   font-display: swap;
-  font-weight: 400 700;
+  font-weight: bold;
 }
 
 @font-face {
@@ -70,7 +70,7 @@ select {
 
 /* تكثيف الخط الياباني بصرياً لأنه Mincho رفيع ولا يوجد ملف Bold */
 :lang(ja) {
-  font-weight: 700;
+  /* font-weight: 700; */
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke: 0.35px currentColor;
   text-shadow: 0 0 0.4px currentColor;
@@ -82,7 +82,7 @@ select {
 :lang(ja) h4,
 :lang(ja) .font-bold,
 :lang(ja) .font-black {
-  -webkit-text-stroke: 0.65px currentColor;
+  /* -webkit-text-stroke: 0.65px currentColor; */
   text-shadow: 0 0 0.8px currentColor;
 }
 
