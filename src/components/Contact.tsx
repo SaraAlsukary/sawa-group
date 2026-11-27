@@ -4,8 +4,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaFolderPlus, FaTrash, FaPaperPlane, FaSpinner } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 
+const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/contact@sawagroup.co.jp";
+const MAX_FILE_SIZE_MB = 5;
+
 export default function Contact(): React.JSX.Element {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
     const [attachedFile, setAttachedFile] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -13,6 +16,24 @@ export default function Contact(): React.JSX.Element {
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
+        if (!file) {
+            setAttachedFile(null);
+            return;
+        }
+
+        const sizeInMb = file.size / (1024 * 1024);
+        if (sizeInMb > MAX_FILE_SIZE_MB) {
+            toast.error(
+                t(
+                    "File-size-error",
+                    `حجم الملف يتجاوز ${MAX_FILE_SIZE_MB} ميجابايت، يرجى اختيار ملف أصغر.`
+                )
+            );
+            event.target.value = "";
+            setAttachedFile(null);
+            return;
+        }
+
         setAttachedFile(file);
     };
 
@@ -23,16 +44,16 @@ export default function Contact(): React.JSX.Element {
         }
     };
 
-    // معالجة إرسال النموذج بدون إعادة تحميل الصفحة
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setIsSubmitting(true);
 
         const formData = new FormData(event.currentTarget);
+        formData.append("_subject", "رسالة جديدة من نموذج التواصل");
+        formData.append("_template", "table");
 
         try {
-            // ملاحظة: تم إضافة /ajax/ إلى رابط FormSubmit لمعالجة الطلب برمجياً
-            const response = await fetch("https://formsubmit.co/ajax/contact@arabicsc.com", {
+            const response = await fetch(FORMSUBMIT_ENDPOINT, {
                 method: "POST",
                 body: formData,
                 headers: {
@@ -40,19 +61,24 @@ export default function Contact(): React.JSX.Element {
                 },
             });
 
-            if (response.ok) {
-                // إظهار إشعار النجاح مترجماً حسب اللغة الحالية
+            const result = await response.json().catch(() => null);
+
+            if (response.ok && result?.success !== "false") {
                 toast.success(t("Form-success-message", "تم إرسال رسالتك بنجاح!"));
 
-                // تفريغ كافة حقول النموذج والملف المرفق
                 if (formRef.current) {
                     formRef.current.reset();
                 }
                 handleFileDelete();
             } else {
-                toast.error(t("Form-error-message", "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً."));
+                console.error("FormSubmit response error:", result);
+                toast.error(
+                    result?.message ||
+                        t("Form-error-message", "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.")
+                );
             }
         } catch (error) {
+            console.error("Network/Submit error:", error);
             toast.error(t("Form-error-message", "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً."));
         } finally {
             setIsSubmitting(false);
@@ -61,11 +87,9 @@ export default function Contact(): React.JSX.Element {
 
     return (
         <section id="Contact" className="relative bg-white py-16 px-3 sm:px-2 lg:px-3 overflow-hidden">
-            {/* مكون التنبيهات Toast */}
             <Toaster position="bottom-center" reverseOrder={false} />
 
             <div className="max-w-4xl mx-auto">
-                {/* حاوية النموذج بأنيميشن ودخول ناعم */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +101,6 @@ export default function Contact(): React.JSX.Element {
                         ref={formRef}
                         onSubmit={handleSubmit}
                         encType="multipart/form-data"
-                        id="Contact"
                         className="space-y-6"
                     >
                         {/* حقل الاسم */}
@@ -134,14 +157,12 @@ export default function Contact(): React.JSX.Element {
 
                         {/* شريط المرفقات وزر الإرسال */}
                         <div className="pt-6 flex flex-col md:flex-row md:items-end justify-between gap-6 border-t border-gray-100">
-                            {/* قسم إرفاق الملف */}
                             <div className="flex-1">
                                 <label className="block text-lg md:text-xl font-bold text-black mb-3">
                                     {t("File-form")}
                                 </label>
 
                                 <div className="flex flex-wrap items-center gap-4">
-                                    {/* زر رفع الملف المخصص */}
                                     <label
                                         htmlFor="btnfolder"
                                         className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-lg md:text-xl cursor-pointer transition-all duration-200 border border-gray-200 hover:border-gray-300 active:scale-95"
@@ -159,7 +180,6 @@ export default function Contact(): React.JSX.Element {
                                         onChange={handleFileChange}
                                     />
 
-                                    {/* شارة الملف المرفق مع حركة ظهور واختفاء ناعمة */}
                                     <AnimatePresence>
                                         {attachedFile && (
                                             <motion.div
@@ -185,7 +205,6 @@ export default function Contact(): React.JSX.Element {
                                 </div>
                             </div>
 
-                            {/* زر الإرسال التفاعلي */}
                             <div>
                                 <motion.button
                                     whileHover={{ scale: isSubmitting ? 1 : 1.03 }}
