@@ -60,7 +60,7 @@ export default function Contact(): React.JSX.Element {
     };
 
     return (
-        <section id="Contact" className="relative bg-white py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section id="Contact" className="relative bg-white py-16 px-3 sm:px-2 lg:px-3 overflow-hidden">
             {/* مكون التنبيهات Toast */}
             <Toaster position="bottom-center" reverseOrder={false} />
 
@@ -71,7 +71,7 @@ export default function Contact(): React.JSX.Element {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-100 shadow-[0_2px_3px_0px_red]"
+                    className="bg-white rounded-3xl p-3 sm:p-2 border border-gray-100 shadow-[0_2px_3px_0px_red]"
                 >
                     <form
                         ref={formRef}
@@ -82,7 +82,7 @@ export default function Contact(): React.JSX.Element {
                     >
                         {/* حقل الاسم */}
                         <div>
-                            <label className="block text-xl font-bold text-gray-900 mb-2">
+                            <label className="block text-xl font-bold text-black mb-2">
                                 {t("Name-form")}
                             </label>
                             <input
@@ -95,7 +95,7 @@ export default function Contact(): React.JSX.Element {
 
                         {/* حقل البريد الإلكتروني */}
                         <div>
-                            <label className="block text-lg md:text-xl font-bold text-gray-900 mb-2">
+                            <label className="block text-lg md:text-xl font-bold text-black mb-2">
                                 {t("Email-form")}
                             </label>
                             <input
@@ -108,7 +108,7 @@ export default function Contact(): React.JSX.Element {
 
                         {/* حقل رقم الهاتف */}
                         <div>
-                            <label className="block text-lg md:text-xl font-bold text-gray-900 mb-2">
+                            <label className="block text-lg md:text-xl font-bold text-black mb-2">
                                 {t("Phone-form")}
                             </label>
                             <input
@@ -121,7 +121,7 @@ export default function Contact(): React.JSX.Element {
 
                         {/* حقل نص الرسالة */}
                         <div>
-                            <label className="block text-lg md:text-xl font-bold text-gray-900 mb-2">
+                            <label className="block text-lg md:text-xl font-bold text-black mb-2">
                                 {t("Textarea-form")}
                             </label>
                             <textarea
@@ -136,7 +136,7 @@ export default function Contact(): React.JSX.Element {
                         <div className="pt-6 flex flex-col md:flex-row md:items-end justify-between gap-6 border-t border-gray-100">
                             {/* قسم إرفاق الملف */}
                             <div className="flex-1">
-                                <label className="block text-lg md:text-xl font-bold text-gray-900 mb-3">
+                                <label className="block text-lg md:text-xl font-bold text-black mb-3">
                                     {t("File-form")}
                                 </label>
 
